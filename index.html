@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101827">
+<title>NSL TECH — Nepali Sign Language</title>
+<style>
+:root{--bg:#0b1220;--panel:#131f33;--panel2:#192941;--text:#f4f7fb;--muted:#a9b7ca;--blue:#65a9ff;--cyan:#68e0d0;--line:#2b3b53;--good:#9be6b0}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#0b1220,#101d31);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+header{padding:22px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1100px;margin:auto}
+.brand{display:flex;align-items:center;gap:12px}.mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#438cf2,#56d6c7);display:grid;place-items:center;font-size:25px;color:#061321}
+h1{font-size:20px;margin:0;letter-spacing:.08em}header p{margin:0;color:var(--muted);font-size:12px}
+.tag{border:1px solid #35506e;color:#b8d7ff;border-radius:99px;padding:6px 10px;font-size:12px}
+main{max-width:1100px;margin:auto;padding:22px 16px 50px}.hero{padding:22px 0 18px}.eyebrow{color:var(--cyan);font-size:12px;letter-spacing:.16em;font-weight:700}.hero h2{font-size:clamp(28px,5vw,43px);line-height:1.1;margin:8px 0 12px}.hero p{color:var(--muted);max-width:680px;margin:0}
+.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;margin-top:18px}.card{background:rgba(19,31,51,.94);border:1px solid var(--line);border-radius:20px;padding:18px;min-width:0}.card h3{margin:0 0 12px;font-size:18px}.camera-wrap{background:#050a12;border-radius:15px;overflow:hidden;aspect-ratio:4/3;position:relative;display:grid;place-items:center;border:1px solid #293b52}
+video{width:100%;height:100%;object-fit:cover;display:none;transform:scaleX(-1)}.placeholder{text-align:center;color:var(--muted);padding:20px}.placeholder .emoji{font-size:48px;display:block;margin-bottom:8px}.camera-status{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0;color:var(--muted);font-size:13px}
+button,select,input{font:inherit}button{border:0;border-radius:12px;padding:12px 15px;background:var(--blue);color:#071323;font-weight:700;cursor:pointer}button.secondary{background:#263b56;color:var(--text);border:1px solid #3a5270}button.danger{background:#57303a;color:#ffdce1;border:1px solid #8c4b5b}button:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;flex-wrap:wrap;gap:9px}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:13px;color:#c5d2e2}.field input,.field select{width:100%;background:#0c1728;color:var(--text);border:1px solid #344862;border-radius:10px;padding:11px}
+.note{font-size:12px;color:var(--muted)}.status{padding:11px 12px;border-radius:12px;background:#102d2b;border:1px solid #28544f;color:#b8f2df;font-size:13px;margin-top:12px}
+.output{min-height:100px;border-radius:14px;background:#0b1728;border:1px dashed #3b5877;padding:14px;margin:10px 0}.output strong{display:block;color:var(--cyan);font-size:12px;letter-spacing:.08em}.output span{font-size:22px;display:block;margin-top:6px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.stat{background:#0d192b;border-radius:12px;padding:12px}.stat b{font-size:22px;display:block}.stat small{color:var(--muted)}
+.list{display:grid;gap:8px;margin-top:12px}.item{display:flex;justify-content:space-between;gap:10px;align-items:center;background:#0d192b;padding:10px 12px;border-radius:11px;font-size:13px}.item button{padding:6px 9px;font-size:12px}
+footer{max-width:1100px;margin:auto;padding:0 16px 28px;color:var(--muted);font-size:12px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}header{padding:16px}.tag{display:none}.card{padding:15px}.hero{padding-top:15px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="mark">🤟</div><div><h1>NSL TECH</h1><p>Nepali Sign Language • Sign to Text</p></div></div>
+ <div class="tag">COMMUNITY-LED • FREE STARTER</div>
+</header>
+<main>
+ <section class="hero">
+  <div class="eyebrow">OUR FIRST STEP</div>
+  <h2>Every sign has a meaning.</h2>
+  <p>A Deaf-led project to collect, learn and build technology for Nepali Sign Language. Start by recording a sign and adding its meaning in Nepali and English.</p>
+ </section>
+ <section class="grid">
+  <div class="card">
+   <h3>📷 Sign recording studio</h3>
+   <div class="camera-wrap">
+    <video id="video" autoplay playsinline muted></video>
+    <div class="placeholder" id="placeholder"><span class="emoji">🖐️</span><b>Your camera preview will appear here</b><br><span class="note">Allow camera access when your browser asks.</span></div>
+   </div>
+   <div class="camera-status"><span id="camStatus">Camera is off</span><span id="recordStatus">Not recording</span></div>
+   <div class="actions">
+    <button id="startCamera">Start camera</button>
+    <button id="record" class="secondary" disabled>● Record sign</button>
+    <button id="stopRecord" class="danger" disabled>Stop</button>
+   </div>
+   <div class="status" id="message" role="status">Ready. Use a well-lit place and keep your hands and upper body visible.</div>
+  </div>
+  <div class="card">
+   <h3>🏷️ Add sign meaning</h3>
+   <div class="field"><label for="nepali">Nepali word / वाक्य</label><input id="nepali" placeholder="उदाहरण: नमस्ते"></div>
+   <div class="field"><label for="english">English meaning</label><input id="english" placeholder="Example: Hello"></div>
+   <div class="field"><label for="category">Category</label><select id="category"><option>Daily conversation</option><option>Family</option><option>Education</option><option>Health</option><option>Emergency</option><option>Feelings</option><option>Numbers</option><option>Other</option></select></div>
+   <div class="field"><label for="contributor">Contributor name (optional)</label><input id="contributor" placeholder="Name or community code"></div>
+   <div class="field"><label for="variation">Region / variation (optional)</label><input id="variation" placeholder="e.g. Kathmandu Valley"></div>
+   <button id="save" style="width:100%">Save sign entry</button>
+   <p class="note">Your entries stay in this browser until you export them. Video recordings are downloaded to your device; they are not uploaded.</p>
+  </div>
+ </section>
+ <section class="grid">
+  <div class="card">
+   <h3>💬 Sign-to-text preview</h3>
+   <div class="output"><strong>DEMO OUTPUT • NOT AI RECOGNITION YET</strong><span id="previewText">Your sign text will appear here.</span></div>
+   <p class="note">This first version does not identify hand signs automatically. The AI recognition model will come after we collect and review enough correctly labelled NSL examples.</p>
+   <div class="actions"><button class="secondary" id="export">Export dataset (JSON)</button><button class="secondary" id="csv">Export labels (CSV)</button></div>
+  </div>
+  <div class="card">
+   <h3>📚 Your collected signs <span id="count" class="tag">0 entries</span></h3>
+   <div id="entries" class="list"><p class="note">No signs saved yet. Add your first sign above.</p></div>
+   <div class="stats"><div class="stat"><b id="total">0</b><small>Sign labels</small></div><div class="stat"><b id="videos">0</b><small>Video clips</small></div><div class="stat"><b>2</b><small>Languages</small></div></div>
+  </div>
+ </section>
+ <section class="card" style="margin-top:16px">
+  <h3>🛡️ Community safety and quality</h3>
+  <p class="note">Record only people who have given informed permission. Avoid filming bystanders or private information. Ask fluent NSL users and Deaf community reviewers to confirm each sign, meaning and regional variation before using it for AI training. Sign languages use facial expression and body movement too, not only hand shapes.</p>
+ </section>
+</main>
+<footer>NSL TECH • Prototype 1.0 • Built for learning and community data collection. No sign video is sent to a server.</footer>
+<script>
+const $=id=>document.getElementById(id);
+let stream=null, recorder=null, chunks=[], currentBlob=null, entries=[], clipCount=0;
+function say(t){$('message').textContent=t}
+function refresh(){
+ $('total').textContent=entries.length; $('count').textContent=entries.length+' entries'; $('videos').textContent=clipCount;
+ $('entries').innerHTML='';
+ if(!entries.length){$('entries').innerHTML='<p class="note">No signs saved yet. Add your first sign above.</p>';return}
+ entries.slice().reverse().forEach((e,idx)=>{
+  const div=document.createElement('div');div.className='item';
+  const text=document.createElement('span');text.textContent=e.nepali+' — '+e.english+(e.videoName?' 🎬':'');
+  const del=document.createElement('button');del.className='secondary';del.textContent='Remove';del.onclick=()=>{entries.splice(entries.length-1-idx,1);refresh()};
+  div.append(text,del);$('entries').append(div);
+ });
+}
+$('startCamera').onclick=async()=>{
+ try{
+  stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false});
+  $('video').srcObject=stream;$('video').style.display='block';$('placeholder').style.display='none';
+  $('camStatus').textContent='Camera is on';$('record').disabled=false;$('startCamera').disabled=true;say('Camera ready. Frame your hands, face and upper body.');
+ }catch(e){say('Could not start camera. Please allow camera permission and open this page using HTTPS or localhost.');}
+};
+$('record').onclick=()=>{
+ if(!stream)return;
+ chunks=[];let options={};
+ if(MediaRecorder.isTypeSupported('video/webm;codecs=vp9'))options.mimeType='video/webm;codecs=vp9';
+ recorder=new MediaRecorder(stream,options);
+ recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+ recorder.onstop=()=>{
+  currentBlob=new Blob(chunks,{type:recorder.mimeType||'video/webm'});
+  const url=URL.createObjectURL(currentBlob),a=document.createElement('a');
+  a.href=url;a.download='nsl-sign-'+Date.now()+'.webm';a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
+  clipCount++;$('videos').textContent=clipCount;$('recordStatus').textContent='Clip downloaded';$('record').disabled=false;$('stopRecord').disabled=true;
+  say('Video saved to your device. Add the Nepali and English meaning, then save the sign entry.');
+ };
+ recorder.start();$('record').disabled=true;$('stopRecord').disabled=false;$('recordStatus').textContent='Recording…';say('Recording. Show one sign clearly, then press Stop.');
+};
+$('stopRecord').onclick=()=>{if(recorder&&recorder.state!=='inactive')recorder.stop()};
+$('save').onclick=()=>{
+ const nepali=$('nepali').value.trim(),english=$('english').value.trim();
+ if(!nepali||!english){say('Please enter both the Nepali word and English meaning.');return}
+ entries.push({id:'nsl-'+Date.now(),nepali,english,category:$('category').value,contributor:$('contributor').value.trim(),region:$('variation').value.trim(),videoName:'',reviewStatus:'Needs NSL community review',createdAt:new Date().toISOString()});
+ $('previewText').textContent=nepali+' / '+english; $('nepali').value='';$('english').value='';refresh();say('Sign label saved in this browser. Remember to export your dataset.');
+};
+function download(name,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+$('export').onclick=()=>{download('nsl-tech-dataset.json',JSON.stringify({project:'NSL TECH',version:'1.0',notice:'Labels require review by fluent NSL users. Video clips are stored separately on your device.',entries},null,2),'application/json')};
+$('csv').onclick=()=>{const q=v=>'"'+String(v??'').replaceAll('"','""')+'"';const rows=[['Nepali','English','Category','Contributor','Region','Review status'],...entries.map(e=>[e.nepali,e.english,e.category,e.contributor,e.region,e.reviewStatus])];download('nsl-tech-labels.csv',rows.map(r=>r.map(q).join(',')).join('\n'),'text/csv')};
+window.addEventListener('beforeunload',()=>{if(stream)stream.getTracks().forEach(t=>t.stop())});
+refresh();
+</script>
+</body></html>
